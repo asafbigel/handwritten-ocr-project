@@ -1,7 +1,7 @@
 # CV Project Progress Tracker
 
 ## Phase 1: Foundations
-- [ ] Week 1: Python Data Stack & Regression (Due: Nov 28)
+- [X] Week 1: Python Data Stack & Regression (Due: Nov 28)
 - [ ] Week 2: MNIST CNN built from scratch (Due: Dec 05)
 
 ## Phase 2: Computer Vision
