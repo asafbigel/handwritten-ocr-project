@@ -16,8 +16,9 @@ def linear_model():
     plt.plot(X, Y, marker = 'o', linestyle = 'None')
 
     # linear regression
-    reg = LinearRegression().fit(X.reshape(-1, 1), Y)
-    response = reg.predict(X.reshape(-1, 1))
+    X = X.reshape(-1, 1)
+    reg = LinearRegression().fit(X, Y)
+    response = reg.predict(X)
 
     # plot response
     plt.plot(X, response, marker = 'x', color = 'red')
