@@ -10,8 +10,8 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-mnist_trainset = torchvision.datasets.MNIST(root='./dataset', train=True, download=True, transform=transforms.ToTensor())
-mnist_testset = torchvision.datasets.MNIST(root='./dataset', train=False, download=True, transform=transforms.ToTensor())
+mnist_trainset = torchvision.datasets.MNIST(root='./data', train=True, download=True, transform=transforms.ToTensor())
+mnist_testset = torchvision.datasets.MNIST(root='./data', train=False, download=True, transform=transforms.ToTensor())
 device = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
 print(f"Using device: {device}")
 BATCH_SIZE = 64
@@ -49,7 +49,7 @@ def train(loader, device) -> nn.Module:
                 tepoch.set_postfix(loss=loss.item())
                 loss_list.append(loss.item())
             acc = check_accuracy(mnist_testset, model, device, toPrint = False)
-            print(f'Acc after epoch {epoch}: {acc}')
+            print(f'Acc after epoch {epoch+1}: {acc}')
     return model, loss_list
 
 def check_accuracy(loader, model, device, toPrint = True):
