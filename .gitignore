@@ -1,4 +1,5 @@
 venv/
 .vscode/
-dataset/
+data/
 mnist_cnn_final.pth
+__pycache__/
