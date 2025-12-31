@@ -1,0 +1,7 @@
+# dataset_config.yaml
+path: ./data/dataset  # נתיב יחסי לתיקייה שיצרת
+train: train.txt         # איפה התמונות לאימון
+val: val.txt           # כרגע נשתמש באותן תמונות לוולידציה בגלל הכמות הקטנה
+
+names:
+  0: exercise

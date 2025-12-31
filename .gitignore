@@ -1,5 +1,9 @@
 venv/
+.venv/
 .vscode/
 data/
 mnist_cnn_final.pth
 __pycache__/
+runs/
+*.pt
+output.txt
