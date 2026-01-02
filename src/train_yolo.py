@@ -28,7 +28,7 @@ if os.path.exists(meta_file):
 else:
     metadata = {"total_epochs": 0, "runs_count": 0}
 
-epochs_to_run = 10 # כמה לאמן בסיבוב הזה
+epochs_to_run = 50 # כמה לאמן בסיבוב הזה
 metadata["total_epochs"] += epochs_to_run
 metadata["runs_count"] += 1
 
@@ -45,7 +45,18 @@ results = model.train(
     data='dataset_config.yaml',
     epochs=epochs_to_run,
     imgsz=640,
-    name='handwritten_random_split3',
+    # --- Disabling Mosaic and mixing ---
+    mosaic=0.0,      # Set to 0.0 to disable 4-image stitching 
+    mixup=0.0,       # Ensure mixup is also disabled 
+    patience=0,
+    # -----------------------------------
+    # --- Data Augmentation Parameters ---
+    degrees=15.0,               # Rotation range (±15 degrees)
+    shear=10.0,                 # Shear range (±10 degrees)
+    perspective=0.000,          # Perspective transform (0.0 to 0.001)
+    # ------------------------------------
+    batch=16,
+    name='handwritten_no_mosaic',
     exist_ok=True # דורס את התיקייה הקיימת כדי לשמור על סדר
 )
 
