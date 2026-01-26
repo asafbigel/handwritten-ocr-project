@@ -112,6 +112,32 @@ def run_experimental_pipeline(image: np.ndarray):
     
     return gray, gaussian_blurred, dilated
 
+def segment_digits(binary_image: np.ndarray, min_area: int = 100):
+    """
+    Week 8 Core Logic:
+    Takes a BINARY image, finds individual digits, and sorts them Left-to-Right.
+    """
+    # 1. Find Contours (Only outer shapes, imply no holes inside 8 or 0)
+    contours, _ = cv.findContours(binary_image, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
+    
+    valid_items = []
+    
+    # 2. Filter Noise & Collect
+    for c in contours:
+        x, y, w, h = cv.boundingRect(c)
+        
+        # Filter: Ignore small dots/noise
+        if w * h < min_area:
+            continue
+            
+        valid_items.append((x, y, w, h))
+        
+    # 3. Sort Left-to-Right (CRITICAL for Math Logic!)
+    # We sort the list based on the 'x' coordinate
+    sorted_items = sorted(valid_items, key=lambda item: item[0])
+    
+    return sorted_items
+
 def visualize_steps(original, gray, blurred, thresholded):
     """
     Plotting utility to see the stages side-by-side.
@@ -157,17 +183,38 @@ if __name__ == '__main__':
         # 1. Inspect
         original = load_and_inspect_image(img_path)
         
-        # 2. Run Experimental Pipeline (Visual Check)
-        gray, blurred, thresh = run_experimental_pipeline(original)
+        # 2. Run Preprocessing (Get the binary image)
+        # אנחנו משתמשים בפונקציה הקיימת שלך כדי לקבל את התמונה הבינארית (המשתנה השלישי)
+        gray, blurred, binary_result = run_experimental_pipeline(original)
         
-        # 3. Visualize
-        visualize_steps(original, gray, blurred, thresh)
+        # 3. Visualize Preprocessing Steps (Optional - אפשר להשאיר בהערה כדי לא להעמיס)
+        # visualize_steps(original, gray, blurred, binary_result)
         
-        # 4. Test Production Function (Sanity Check)
-        print("\nTesting Production Function...")
-        prod_result = load_and_prep_image(img_path)
-        print(f"Production Output Shape: {prod_result.shape}")
-        
+        # 4. Run Segmentation (WEEK 8 LOGIC)
+        # זה החלק החדש: לוקחים את התמונה הבינארית ומפרקים אותה לגורמים
+        print("\n>> Running Digit Segmentation (Week 8)...")
+        try:
+            boxes = segment_digits(binary_result)
+            print(f"Found {len(boxes)} symbols.")
+            
+            # 5. Visual Validation (Draw boxes on original)
+            debug_img = original.copy()
+            for i, (x, y, w, h) in enumerate(boxes):
+                # Draw rectangle: Green, Thickness 2
+                cv.rectangle(debug_img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+                # Draw index number (to verify Left-to-Right sorting)
+                cv.putText(debug_img, str(i), (x, y - 5), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1)
+                
+            plt.figure(figsize=(10, 6))
+            plt.imshow(cv.cvtColor(debug_img, cv.COLOR_BGR2RGB))
+            plt.title(f"Segmentation Result: {len(boxes)} Digits Found (Sorted L->R)")
+            plt.axis('off')
+            plt.show()
+            
+        except NameError:
+            print("CRITICAL ERROR: הפונקציה 'segment_digits' לא נמצאה.")
+            print("ודא שהעתקת את SECTION 3 (הפונקציה החדשה) והדבקת אותה לפני ה-main.")
+
     else:
         print(f"CRITICAL: File not found at {img_path}")
         print("Please update the path in main() or add a sample image.")

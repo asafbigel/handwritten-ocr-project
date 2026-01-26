@@ -64,4 +64,20 @@ results = model.train(
 with open(meta_file, 'w') as f:
     json.dump(metadata, f, indent=4)
 
+# 6. Post-Training: Promote Best Model to Production
+# מגדיר את הנתיב למודל שנוצר כרגע
+source_model_path = os.path.join(root_dir, 'runs', 'detect', 'handwritten_no_mosaic', 'weights', 'best.pt')
+# מגדיר לאן להעתיק אותו
+dest_model_dir = os.path.join(root_dir, 'models')
+dest_model_path = os.path.join(dest_model_dir, 'ocr_model_v1.pt')
+
+# יוצר את התיקייה אם לא קיימת
+os.makedirs(dest_model_dir, exist_ok=True)
+
+if os.path.exists(source_model_path):
+    print(f"🚀 Promoting model to production: {dest_model_path}")
+    shutil.copy(source_model_path, dest_model_path)
+else:
+    print(f"⚠️ Warning: Could not find model at {source_model_path}")
+
 print(f"Training session complete. Total cumulative epochs: {metadata['total_epochs']}")
