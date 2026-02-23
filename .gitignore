@@ -8,3 +8,15 @@ runs/
 *.pt
 output.txt
 temp_crops/
+test_exam.jpg
+test_exam2.jpg
+
+# Math-Mind
+.env
+output/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+dist/

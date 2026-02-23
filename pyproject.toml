@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "math-mind"
+version = "0.1.0"
+description = "AI-powered handwritten math exam grader"
+requires-python = ">=3.11"
+dependencies = [
+    "google-genai>=1.0",
+    "pydantic>=2.0",
+    "pydantic-settings>=2.0",
+    "opencv-python-headless>=4.0",
+    "typer>=0.12",
+    "numpy>=1.24",
+]
+
+[project.scripts]
+math-mind = "math_mind.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/math_mind"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.4",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+src = ["src"]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
