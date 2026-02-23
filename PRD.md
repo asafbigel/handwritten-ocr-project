@@ -40,7 +40,8 @@ The features are staggered into phases to prioritize the MVP deadline while mapp
 ### Phase 3: Identity, Data & UX
 * **FR3.1 User Authentication:** Implement secure login for educators (Session management).
 * **FR3.2 Local Student Database:** Manage a local repository mapping student IDs to names (SQLite/JSON).
-* **FR3.3 Advanced Edge Recognition:** * Match cropped name-regions against a predefined list of students.
+* **FR3.3 Advanced Edge Recognition:**
+  * Match cropped name-regions against a predefined list of students.
   * Train and deploy a lightweight Local/Edge AI model to perform offline OCR on student names.
 * **FR3.4 Dynamic Rubrics:** Provide an interface for teachers to assign specific point weights to individual questions dynamically.
 

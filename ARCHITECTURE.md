@@ -103,8 +103,8 @@ Any exception at steps 2-5 → status = FAILED, error logged, batch continues.
 ## Implementation Steps
 
 ### Phase A: Project Scaffolding
-1. Delete empty `scr/`, create full `src/math_mind/` directory tree with `__init__.py` files
-2. Create `pyproject.toml` (uv, deps: `google-genai`, `pydantic`, `pydantic-settings`, `opencv-python-headless`, `typer`, `numpy`; dev: `pytest`, `pytest-cov`; script entry: `math-mind = "math_mind.cli:app"`)
+1. If present, delete any old `scr/` directory, then create the full `src/math_mind/` directory tree with `__init__.py` files
+2. Create `pyproject.toml` (uv, deps: `google-genai`, `pydantic`, `pydantic-settings`, `opencv-python`, `typer`, `numpy`; dev: `pytest`, `pytest-cov`; script entry: `math-mind = "math_mind.cli:app"`)
 3. Create `.env.example`, update `.gitignore`
 
 ### Phase B: Models & Interfaces *(all parallel)*
