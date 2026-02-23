@@ -55,7 +55,7 @@ handwritten-ocr-project/
 
 | Interface | Method Signature | Phase 1 Implementation |
 |---|---|---|
-| **`Anonymizer`** | `anonymize(image: ndarray) -> ndarray` | `CropAnonymizer` — fills predefined rect region with solid color |
+| **`Anonymizer`** | `anonymize(image: ndarray) -> ndarray` | `DynamicRoiAnonymizer` — DynamicRoiAnonymizer — prompts user to select ROI via UI and crop region |
 | **`GradingEngine`** | `grade(image: ndarray) -> GradingResult` | `GeminiGradingEngine` — google-genai structured output, rate-limited |
 | **`Reporter`** | `generate(result: BatchResult, output_dir: Path) -> Path` | `CsvReporter`, `JsonReporter` |
 | **`Verifier`** | `verify(original: ndarray, anonymized: ndarray, name: str) -> bool` | `CliVisualVerifier` — shows image, asks teacher Y/N |
@@ -72,7 +72,7 @@ handwritten-ocr-project/
 - Question → Student Answer → Correct Answer (AI self-solved) → Readability (CLEAR/PARTIAL/UNCLEAR) → Grade → Notes
 
 **`AppSettings`** (pydantic-settings, loads from `.env`):
-- `gemini_api_key`, `gemini_model`, `crop_region`, `input_dir`, `output_dir`, `report_formats`, `rpm_limit`, `rpd_limit`
+- `gemini_api_key`, `gemini_model`, `input_dir`, `output_dir`, `report_formats`, `rpm_limit`, `rpd_limit`
 
 ---
 

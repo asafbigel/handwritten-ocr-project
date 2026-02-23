@@ -26,7 +26,7 @@ The features are staggered into phases to prioritize the MVP deadline while mapp
 
 ### Phase 1: The Core MVP (Target Deadline: Mar 15, 2026)
 * **FR1.1 Image Ingestion:** The system shall accept a local directory containing raw scanned images (JPG/PNG).
-* **FR1.2 Basic Anonymization:** The system shall use OpenCV to statically crop or mask the exam header (student name region) before any external API calls. The crop region is predefined for scanned exams with a standardized layout.
+* **FR1.2 Basic Anonymization:** The system shall use OpenCV to mask the exam header (student name region) before any external API calls. The system will present a lightweight UI (e.g., cv2.selectROI) allowing the teacher to dynamically draw a bounding box around the student's name. The system will then black out this selected Region of Interest (ROI).
 * **FR1.3 Anonymization Verification:** After anonymization, the system shall present each masked image to the teacher for visual confirmation that the student name has been fully removed before proceeding to the AI grading step.
 * **FR1.4 AI Grading Engine (Self-Solving):** The system shall communicate with the `gemini` model via the `google-genai` SDK to evaluate the anonymized math exams. For math, the AI model **solves the questions independently** and compares its solution against the student's handwritten answer — no teacher-supplied answer key is required.
 * **FR1.5 Strict Schema Enforcement:** The system shall enforce a strict JSON output schema using Pydantic (mapping: Question -> Student Answer -> Correct Answer -> Readability -> Grade).
