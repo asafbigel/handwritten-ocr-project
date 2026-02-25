@@ -4,6 +4,38 @@ from math_mind.interfaces.anonymizer import Anonymizer
 
 class DynamicRoiAnonymizer(Anonymizer):
     def apply_mask(self, image: np.ndarray, x_start: int, y_start: int, width: int, height: int) -> np.ndarray:
+        """
+        Apply a rectangular black mask to a region of the given image.
+
+        The mask region is defined by its top-left corner (`x_start`, `y_start`)
+        and the requested `width` and `height`. If the requested region extends
+        beyond the image bounds, it is clipped so that the mask stays within
+        the image dimensions.
+
+        Parameters
+        ----------
+        image : numpy.ndarray
+            Input image array with shape (height, width, channels) or (height, width).
+        x_start : int
+            X-coordinate (column index) of the top-left corner of the region to mask.
+        y_start : int
+            Y-coordinate (row index) of the top-left corner of the region to mask.
+        width : int
+            Requested width of the region to mask, in pixels. Must be positive.
+        height : int
+            Requested height of the region to mask, in pixels. Must be positive.
+
+        Returns
+        -------
+        numpy.ndarray
+            A copy of the input image with the specified region set to zero (black).
+
+        Raises
+        ------
+        ValueError
+            If `width` or `height` is not positive, or if (`x_start`, `y_start`)
+            lies outside the image bounds.
+        """
         if width <= 0 or height <= 0:
             raise ValueError("Width and height must be positive")
             
