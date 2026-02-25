@@ -52,11 +52,10 @@ class DynamicRoiAnonymizer(Anonymizer):
         """Opens a window where the teacher marks the name area using the mouse, and blacks it out."""
         roi = cv2.selectROI("Select Name to Anonymize (Press ENTER to confirm)", image, showCrosshair=True, fromCenter=False)
         cv2.destroyWindow("Select Name to Anonymize (Press ENTER to confirm)")
-        
+
         x, y, w, h = roi
-        
+
         if w == 0 or h == 0:
             print("No ROI selected. Returning original image.")
-            return image
-            
+            return image.copy()
         return self.apply_mask(image, x, y, w, h)
