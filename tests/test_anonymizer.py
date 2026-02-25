@@ -1,6 +1,7 @@
 import pytest
 import numpy as np
 from math_mind.anonymization.dynamic_anonymizer import DynamicRoiAnonymizer
+from unittest.mock import patch
 
 @pytest.fixture
 def anonymizer():
@@ -49,3 +50,29 @@ def test_apply_mask_invalid_coordinates(anonymizer, dummy_image):
     for x, y in invalid_starts:
         with pytest.raises(ValueError, match="Coordinates out of image bounds"):
             anonymizer.apply_mask(dummy_image, x, y, 1, 1)
+
+@patch("cv2.destroyWindow")
+@patch("cv2.selectROI")
+def test_anonymize_valid_selection(mock_select, mock_destroy, anonymizer, dummy_image):
+    # Mock: Simulate a valid user ROI selection (x, y, w, h)
+    mock_select.return_value = (10, 10, 20, 20)
+    
+    result = anonymizer.anonymize(dummy_image)
+    
+    # Verify that OpenCV GUI functions were called
+    assert mock_select.called
+    assert mock_destroy.called
+    
+    # Verify the function passed the coordinates to apply_mask and blackened the correct ROI
+    assert_valid_mask(result, dummy_image, 10, 30, 10, 30)
+
+@patch("cv2.destroyWindow")
+@patch("cv2.selectROI")
+def test_anonymize_cancelled_selection(mock_select, mock_destroy, anonymizer, dummy_image):
+    # Mock: Simulate a cancelled selection (width and height are zero)
+    mock_select.return_value = (0, 0, 0, 0)
+    
+    result = anonymizer.anonymize(dummy_image)
+    
+    # Verify the original image is returned unchanged
+    assert np.array_equal(result, dummy_image), "Image should not be modified if ROI selection is cancelled"
