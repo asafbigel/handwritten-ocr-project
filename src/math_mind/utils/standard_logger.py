@@ -17,8 +17,14 @@ class JsonFormatter(logging.Formatter):
             "message": record.getMessage(),
         }
         extra = getattr(record, "extra_fields", None)
-        if extra:
-            entry.update(extra)
+        if isinstance(extra, dict) and extra:
+            reserved_keys = {"timestamp", "level", "name", "message"}
+            extra_reserved = {k: v for k, v in extra.items() if k in reserved_keys}
+            extra_non_reserved = {k: v for k, v in extra.items() if k not in reserved_keys}
+            if extra_non_reserved:
+                entry.update(extra_non_reserved)
+            if extra_reserved:
+                entry.setdefault("extra", {}).update(extra_reserved)
         return json.dumps(entry, default=str)
 
 
@@ -61,10 +67,21 @@ class StandardLoggerProvider(LoggerProvider):
         stdlib_logger = logging.getLogger(name)
         stdlib_logger.setLevel(self._level)
 
-        if not stdlib_logger.handlers:
+        json_stderr_handler_exists = False
+        for handler in stdlib_logger.handlers:
+            if (
+                isinstance(handler, logging.StreamHandler)
+                and getattr(handler, "stream", None) is sys.stderr
+                and isinstance(handler.formatter, JsonFormatter)
+            ):
+                json_stderr_handler_exists = True
+                break
+
+        if not json_stderr_handler_exists:
             handler = logging.StreamHandler(sys.stderr)
             handler.setFormatter(JsonFormatter())
             stdlib_logger.addHandler(handler)
+            stdlib_logger.propagate = False
 
         wrapped = StandardLogger(stdlib_logger)
         self._loggers[name] = wrapped
