@@ -7,6 +7,7 @@ from math_mind.interfaces.logger import Logger
 class DynamicRoiAnonymizer(Anonymizer):
     def __init__(self, logger: Logger) -> None:
         self._logger = logger
+        
     def apply_mask(self, image: np.ndarray, x_start: int, y_start: int, width: int, height: int) -> np.ndarray:
         """
         Apply a rectangular black mask to a region of the given image.
