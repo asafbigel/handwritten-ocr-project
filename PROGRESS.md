@@ -10,13 +10,13 @@
 - [x] Testing: `test_anonymizer.py` completed with 100% coverage. `apply_mask` is a strict Pure Function. 
 - [x] Security: No PII leakage in the anonymization process.
 
-### 🚧 NEXT UP: Phase 1.5 (Deadline: Feb 27, 2026)
-- [ ] Define the `Verifier` interface (`src/math_mind/interfaces/verifier.py`).
-- [ ] Write a Test Plan for the verification logic (abstracting the keypress).
-- [ ] Implement `CliVisualVerifier` using `cv2.imshow` and `cv2.waitKey`.
-- [ ] Pass `pytest` coverage for Phase 1.5.
+### ✅ DONE: Phase 1.5 (Deadline: Feb 27, 2026)
+- [x] Define the `Verifier` interface (`src/math_mind/interfaces/verifier.py`).
+- [x] Write a Test Plan for the verification logic (abstracting the keypress).
+- [x] Implement `CliVisualVerifier` using `cv2.imshow` and `cv2.waitKey`.
+- [x] Pass `pytest` coverage for Phase 1.5.
 
-### ⏳ PENDING: Phase 2 - AI Integration (Deadline: Mar 4, 2026)
+### 🚧 NEXT UP: Phase 2 - AI Integration (Deadline: Mar 4, 2026)
 - [ ] Define `AiVision` interface.
 - [ ] Implement `GeminiClient` (`google-genai` SDK, Gemini 2.5 Flash).
 - [ ] Test API integration with `unittest.mock`.
