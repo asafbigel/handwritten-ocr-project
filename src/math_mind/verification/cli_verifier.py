@@ -18,13 +18,14 @@ class CliVisualVerifier(Verifier):
             raise ValueError("Original and anonymized images must have the same dimensions")      
         
         combined = cv2.hconcat([original, anonymized])
-        cv2.imshow(f"Verification for {name} (Press 'y' to approve, 'n' to reject)", combined)
+        window_title = f"Verification for {name} (Press 'y' to approve, 'n' to reject)"
+        cv2.imshow(window_title, combined)
         
         while True:
             key = cv2.waitKey(0) & 0xFF
             if key in (ord('y'), ord('Y')):
-                cv2.destroyAllWindows()
+                cv2.destroyWindow(window_title)
                 return True
             elif key in (27, ord('n'), ord('N')):
-                cv2.destroyAllWindows()
+                cv2.destroyWindow(window_title)
                 return False
