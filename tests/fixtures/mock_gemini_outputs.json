@@ -1,0 +1,62 @@
+{
+  "valid_response": {
+    "results": [
+      {
+        "question": "2x + 5 = 15",
+        "student_answer": "x = 5",
+        "correct_answer": "x = 5",
+        "readability": "CLEAR",
+        "grade": 100.0,
+        "notes": "Perfect logic."
+      },
+      {
+        "question": "3y - 2 = 7",
+        "student_answer": "y = 2",
+        "correct_answer": "y = 3",
+        "readability": "PARTIAL",
+        "grade": 0.0,
+        "notes": "Calculation error."
+      },
+      {
+        "question": "3y - 2 = 7",
+        "student_answer": "3",
+        "correct_answer": "y = 3",
+        "readability": "PARTIAL",
+        "grade": 95.3,
+        "notes": "Minor formatting issue, but correct answer."
+      }
+    ]
+  },
+  "invalid_readability": {
+    "results": [
+      {
+        "question": "1+1",
+        "student_answer": "2",
+        "correct_answer": "2",
+        "readability": "Kinda Clear", 
+        "grade": 100.0
+      }
+    ]
+  },
+  "invalid_grade_bounds": {
+    "results": [
+      {
+        "question": "1+1",
+        "student_answer": "2",
+        "correct_answer": "2",
+        "readability": "CLEAR",
+        "grade": 150.0 
+      }
+    ]
+  },
+  "missing_required_field": {
+    "results": [
+      {
+        "question": "1+1",
+        "correct_answer": "2",
+        "readability": "CLEAR",
+        "grade": 100.0
+      }
+    ]
+  }
+}
