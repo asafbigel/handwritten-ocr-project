@@ -18,7 +18,6 @@ class AppSettings(BaseSettings):
     # Path Configuration
     input_dir: str = "input"
     output_dir: str = "output"
-
     model_config = SettingsConfigDict(env_file=ENV_FILE, env_file_encoding="utf-8")
 
 # Singleton instance
