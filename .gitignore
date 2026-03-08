@@ -9,3 +9,5 @@ runs/
 output.txt
 temp_crops/
 scripts/
+*.log
+.env
