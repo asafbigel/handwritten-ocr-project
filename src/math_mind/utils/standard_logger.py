@@ -3,7 +3,7 @@ import logging
 import sys
 from datetime import datetime, timezone
 
-from math_mind.interfaces.logger import Logger, LoggerProvider
+from interfaces.logger import Logger, LoggerProvider
 
 
 class JsonFormatter(logging.Formatter):
