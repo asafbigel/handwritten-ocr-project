@@ -5,7 +5,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-
 class DynamicRoiAnonymizer(Anonymizer):      
 
         
@@ -71,5 +70,5 @@ class DynamicRoiAnonymizer(Anonymizer):
             masked_image = self.apply_mask(image, x, y, w, h)
             return masked_image
         except ValueError as e:
-            logger.error("Failed to apply mask", error=str(e))
+            logger.error("Failed to apply mask", extra={"error": str(e)})
             raise

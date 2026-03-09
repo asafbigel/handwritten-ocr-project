@@ -9,7 +9,7 @@ class CliVisualVerifier(Verifier):
     and prompts the user to confirm if the anonymization is acceptable by pressing 'y' or 'n'.    
     """
 
-    def verify(self, original: ndarray, anonymized: ndarray, name: str) -> bool:
+    def verify(self, original: ndarray, anonymized: ndarray, name: str = "missing_name") -> bool:
         if original is None or anonymized is None:
             raise ValueError("Image array cannot be null")
         if original.size == 0 or anonymized.size == 0:
