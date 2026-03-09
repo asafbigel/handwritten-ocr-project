@@ -1,18 +1,13 @@
 import pytest
 import numpy as np
 from math_mind.anonymization.dynamic_anonymizer import DynamicRoiAnonymizer
-from math_mind.interfaces.logger import Logger
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
-
-def _make_mock_logger() -> Logger:
-    mock = MagicMock(spec=Logger)
-    return mock
 
 
 @pytest.fixture
 def anonymizer():
-    return DynamicRoiAnonymizer(logger=_make_mock_logger())
+    return DynamicRoiAnonymizer()
 
 @pytest.fixture
 def dummy_image():
@@ -93,3 +88,16 @@ def test_anonymize_cancelled_selection(mock_select, mock_destroy, mock_named_win
     
     # Verify the original image is returned unchanged
     assert np.array_equal(result, dummy_image), "Image should not be modified if ROI selection is cancelled"
+
+@patch("cv2.namedWindow")
+@patch("cv2.destroyWindow")
+@patch("cv2.selectROI")
+@patch.object(DynamicRoiAnonymizer, "apply_mask", side_effect=ValueError("Mocked apply_mask failure"))
+def test_anonymize_apply_mask_failure(mock_apply_mask, mock_select, mock_destroy, mock_named_window, anonymizer, dummy_image, caplog):
+    # Arrange
+    mock_select.return_value = (10, 10, 20, 20)
+    # Act & Assert
+    with pytest.raises(ValueError, match="Mocked apply_mask failure"):
+        anonymizer.anonymize(dummy_image)  
+    assert "Failed to apply mask" in caplog.text
+    
