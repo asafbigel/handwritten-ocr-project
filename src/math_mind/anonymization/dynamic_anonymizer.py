@@ -1,12 +1,13 @@
 import cv2
 import numpy as np
 from math_mind.interfaces.anonymizer import Anonymizer
-from math_mind.interfaces.logger import Logger
+import logging
+
+logger = logging.getLogger(__name__)
 
 
-class DynamicRoiAnonymizer(Anonymizer):
-    def __init__(self, logger: Logger) -> None:
-        self._logger = logger
+class DynamicRoiAnonymizer(Anonymizer):      
+
         
     def apply_mask(self, image: np.ndarray, x_start: int, y_start: int, width: int, height: int) -> np.ndarray:
         """
@@ -63,12 +64,12 @@ class DynamicRoiAnonymizer(Anonymizer):
         x, y, w, h = roi
 
         if w == 0 or h == 0:
-            self._logger.info("No ROI selected. Returning original image.")
+            logger.info("No ROI selected. Returning original image.")
             return image.copy()
-        self._logger.debug("Applying mask", x=x, y=y, width=w, height=h)
+        logger.debug(f"Applying mask to ROI: (x:{x}, y:{y}, width:{w}, height:{h})")
         try:
             masked_image = self.apply_mask(image, x, y, w, h)
             return masked_image
         except ValueError as e:
-            self._logger.error("Failed to apply mask", error=str(e))
+            logger.error("Failed to apply mask", error=str(e))
             raise

@@ -1,18 +1,13 @@
 import pytest
 import numpy as np
 from math_mind.anonymization.dynamic_anonymizer import DynamicRoiAnonymizer
-from math_mind.interfaces.logger import Logger
 from unittest.mock import patch, MagicMock
 
-
-def _make_mock_logger() -> Logger:
-    mock = MagicMock(spec=Logger)
-    return mock
 
 
 @pytest.fixture
 def anonymizer():
-    return DynamicRoiAnonymizer(logger=_make_mock_logger())
+    return DynamicRoiAnonymizer()
 
 @pytest.fixture
 def dummy_image():
