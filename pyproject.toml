@@ -3,8 +3,12 @@ name = "handwritten-ocr-project"
 version = "0.1.0"
 requires-python = ">=3.10"
 dependencies = [
+    "google-genai>=1.65.0",
     "numpy>=2.2.6",
     "opencv-python>=4.13.0.92",
+    "pillow>=12.1.1",
+    "pydantic>=2.12.5",
+    "pydantic-settings>=2.13.1",
 ]
 
 [tool.pytest.ini_options]

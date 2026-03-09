@@ -19,6 +19,7 @@ class CliVisualVerifier(Verifier):
         
         combined = cv2.hconcat([original, anonymized])
         window_title = f"Verification for {name} (Press 'y' to approve, 'n' to reject)"
+        cv2.namedWindow(window_title, cv2.WINDOW_NORMAL)
         cv2.imshow(window_title, combined)
         
         while True:

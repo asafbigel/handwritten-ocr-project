@@ -1,6 +1,7 @@
 venv/
 .venv/
 .vscode/
+.env
 data/
 mnist_cnn_final.pth
 __pycache__/
