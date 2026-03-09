@@ -1,4 +1,5 @@
 import json
+import logging
 import PIL.Image
 import numpy as np
 from google import genai
@@ -7,6 +8,8 @@ from math_mind.models.grading import GradingResult
 from math_mind.utils.retry import with_retry
 from math_mind.engines.exceptions import ConfigurationError, RateLimitExceededError
 from google.genai import errors as genai_errors
+
+logger = logging.getLogger(__name__)
 
 class GeminiGradingEngine(GradingEngine):
     def __init__(self, api_key: str, model_name: str):
@@ -22,7 +25,7 @@ class GeminiGradingEngine(GradingEngine):
             "Compare your solution to the student's handwritten answer. "
             "Flag every handwriting as 'CLEAR' or 'PARTIAL' or 'UNCLEAR'."
         )
-
+        logger.info(f"Sending grading request to Gemini model '{self.model_name}'...")
         try:
             response = self.client.models.generate_content(
                 model=self.model_name,

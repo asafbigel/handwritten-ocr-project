@@ -1,6 +1,9 @@
 import time
 import functools
+import logging
 from math_mind.engines.exceptions import RateLimitExceededError
+
+logger = logging.getLogger(__name__)
 
 def with_retry(max_retries: int = 3, base_delay: float = 60.0):
     def decorator(func):
@@ -14,7 +17,10 @@ def with_retry(max_retries: int = 3, base_delay: float = 60.0):
                     retries += 1
                     if retries >= max_retries:
                         raise e
-                    print(f"Rate limit hit. Retrying {retries}/{max_retries} after {base_delay}s...")
+                    logger.warning(
+                        f"Rate limit hit in '{func.__name__}'. "
+                        f"Retrying {retries+1}/{max_retries} after {base_delay}s..."
+                    )
                     time.sleep(base_delay)
             return func(*args, **kwargs)
         return wrapper

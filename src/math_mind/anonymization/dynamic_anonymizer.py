@@ -55,8 +55,10 @@ class DynamicRoiAnonymizer(Anonymizer):
 
     def anonymize(self, image: np.ndarray) -> np.ndarray:
         """Opens a window where the teacher marks the name area using the mouse, and blacks it out."""
-        roi = cv2.selectROI("Select Name to Anonymize (Press ENTER to confirm)", image, showCrosshair=True, fromCenter=False)
-        cv2.destroyWindow("Select Name to Anonymize (Press ENTER to confirm)")
+        window_title = "Select Name to Anonymize (Press ENTER to confirm)"
+        cv2.namedWindow(window_title, cv2.WINDOW_NORMAL)
+        roi = cv2.selectROI(window_title, image, showCrosshair=True, fromCenter=False)
+        cv2.destroyWindow(window_title)
 
         x, y, w, h = roi
 
