@@ -29,7 +29,7 @@ class GradingOrchestrator:
 
         # 3. Verify
         logger.info("Waiting for human verification...")
-        context.is_approved = self.verifier.verify(context.raw_image, context.anonymized_image)
+        context.is_approved = self.verifier.verify(context.raw_image, context.anonymized_image, image_path)
         
         if not context.is_approved:
             logger.warning("[!] Human rejected the image. Aborting.")

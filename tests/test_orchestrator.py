@@ -42,7 +42,7 @@ def test_process_exam_happy_flow(orchestrator_env):
     assert anonymizer.anonymize.return_value is context.anonymized_image
     assert np.array_equal(context.anonymized_image, np.ones((100, 100, 3), dtype=np.uint8))
 
-    verifier.verify.assert_called_once_with(context.raw_image, context.anonymized_image)
+    verifier.verify.assert_called_once_with(context.raw_image, context.anonymized_image, "valid_path.jpg")
     assert verifier.verify.return_value is context.is_approved
     assert context.is_approved is True
 
@@ -85,7 +85,7 @@ def test_process_exam_stops_when_verifier_rejects(orchestrator_env):
     assert anonymizer.anonymize.return_value is context.anonymized_image
     assert np.array_equal(context.anonymized_image, np.ones((100, 100, 3), dtype=np.uint8))
 
-    verifier.verify.assert_called_once_with(context.raw_image, context.anonymized_image)
+    verifier.verify.assert_called_once_with(context.raw_image, context.anonymized_image, "valid_path.jpg")
     assert verifier.verify.return_value is context.is_approved
     assert context.is_approved is False
 
