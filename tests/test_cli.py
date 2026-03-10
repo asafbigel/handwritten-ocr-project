@@ -26,6 +26,10 @@ def test_cli_grade_happy_flow(mocker, caplog):
                 grade=100.0)]
                 )
 
+    mock_settings = mocker.patch("math_mind.config.get_settings")
+    mock_settings.return_value.gemini_api_key = "fake_api_key"
+    mock_settings.return_value.gemini_model = "fake_model"
+
     # We patch the GradingOrchestrator within the CLI's namespace!
     mock_orchestrator_class = mocker.patch("math_mind.cli.GradingOrchestrator")
     
@@ -62,6 +66,10 @@ def test_cli_grade_rejected_flow(mocker, caplog):
     mock_context = ExamContext(raw_image=np.zeros((10,10,3), dtype=np.uint8))
     mock_context.anonymized_image = np.ones((10,10,3), dtype=np.uint8)
     mock_context.is_approved = False
+
+    mock_settings = mocker.patch("math_mind.config.get_settings")
+    mock_settings.return_value.gemini_api_key = "fake_api_key"
+    mock_settings.return_value.gemini_model = "fake_model"
 
     # We patch the GradingOrchestrator within the CLI's namespace!
     mock_orchestrator_class = mocker.patch("math_mind.cli.GradingOrchestrator")

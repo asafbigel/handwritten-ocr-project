@@ -1,7 +1,7 @@
 import typer
 import logging
 from typing import Annotated
-from math_mind.config import settings
+from math_mind.config import get_settings
 from math_mind.pipeline.orchestrator import GradingOrchestrator
 from math_mind.engines.gemini_engine import GeminiGradingEngine
 from math_mind.verification.cli_verifier import CliVisualVerifier
@@ -25,8 +25,8 @@ def grade(
     verifier = CliVisualVerifier()
     anonymizer = DynamicRoiAnonymizer()
     engine = GeminiGradingEngine(
-        api_key=settings.gemini_api_key,
-        model_name=settings.gemini_model
+        api_key=get_settings().gemini_api_key,
+        model_name=get_settings().gemini_model
     )
     
     
