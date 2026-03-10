@@ -12,3 +12,4 @@ temp_crops/
 scripts/
 *.log
 .env
+src/handwritten_ocr_project.egg-info/
