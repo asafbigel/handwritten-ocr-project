@@ -26,7 +26,7 @@
 ### ✅ DONE: Phase 4 - CLI & Orchestrator (Deadline: Mar 11, 2026)
 - [x] Build `GradingOrchestrator` to chain: `Load` -> `Anonymize` -> `Verify` -> `Grade` -> `Report`.
 - [x] Create `ExamContext` data structure to pass state safely between components.
-- [x] Implement CLI interface using `argparse`.
+- [x] Implement CLI interface using Typer (Typer-based CLI).
 - [x] E2E Testing of the complete pipeline.
 
 ### 🚀 MVP RELEASE (Deadline: Mar 15, 2026)

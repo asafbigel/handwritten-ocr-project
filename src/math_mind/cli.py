@@ -52,7 +52,8 @@ def grade(
         else:
             logger.warning("Image was rejected by the human verifier. No grading performed.")
     except Exception as e:
-        logger.error(f"\n[ERROR] Pipeline failed: {e}")
+        logger.exception("\n[ERROR] Pipeline failed")
+        raise typer.Exit(code=1)
 
 if __name__ == "__main__":
     app()
