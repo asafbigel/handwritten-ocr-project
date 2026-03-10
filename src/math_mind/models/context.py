@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import numpy as np
 from typing import Optional
-from models.grading import GradingResult
+from math_mind.models.grading import GradingResult
 
 @dataclass
 class ExamContext:
