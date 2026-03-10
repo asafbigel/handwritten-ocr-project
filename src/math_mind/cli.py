@@ -20,13 +20,13 @@ def grade(
 ):
     """Run the full anonymization, verification, and grading pipeline."""
     logger.info(f"Starting pipeline for: {image_path}")
-    
+    settings = get_settings()
     # Dependency Injection wiring
     verifier = CliVisualVerifier()
     anonymizer = DynamicRoiAnonymizer()
     engine = GeminiGradingEngine(
-        api_key=get_settings().gemini_api_key,
-        model_name=get_settings().gemini_model
+        api_key=settings.gemini_api_key,
+        model_name=settings.gemini_model
     )
     
     
