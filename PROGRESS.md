@@ -1,7 +1,7 @@
 # Math-Mind Hybrid Grader - Progress Tracker
 **MVP Hard Deadline: March 15, 2026**
 
-## 🎯 Current Milestone: DONE!!✅
+## 🎯 Current Milestone: MVP: PENDING FIXES ⚠️
 
 ### ✅ DONE (Phase 0 & Phase 1)
 - [x] Project scaffolding with `uv` and `pyproject.toml`.
@@ -31,3 +31,13 @@
 
 ### 🚀 MVP RELEASE (Deadline: Mar 15, 2026)
 - [x] Buffer for debugging, edge cases, and final manual validation.
+
+### 🚧 Technical Debt & Missing Features (Audit Results)
+- [ ] Implement directory batch ingestion in the Typer CLI (accept JPG/PNG folders, not only a single image path) (FR1.1).
+- [ ] Add `Reporter` and `ImageProcessor` interfaces and wire them through dependency injection in the orchestrator (NFR2, ARCHITECTURE.md).
+- [ ] Implement local CSV/JSON batch report generation with per-image outcomes and UNCLEAR flags (FR1.6).
+- [ ] Refactor `GradingOrchestrator` into a resilient batch pipeline that continues on per-file failures instead of aborting execution (NFR3).
+- [ ] Implement proactive Gemini quota management for per-minute, per-hour, per-day, and per-month limits with pause-and-resume behavior (NFR4).
+- [ ] Integrate the rate-limiter into `GeminiGradingEngine` and remove dead/commented limiter code paths (NFR3, NFR4).
+- [ ] Add cleanup management for intermediate artifacts with guaranteed post-run deletion hooks (NFR1, ARCHITECTURE.md).
+- [ ] Create and commit `.env.example` documenting required runtime variables (e.g., `GEMINI_API_KEY`, `GEMINI_MODEL`) (NFR1, ARCHITECTURE.md).
