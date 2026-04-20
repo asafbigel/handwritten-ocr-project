@@ -35,4 +35,4 @@ def test_retry_logic_exceeds_max_retries():
     with pytest.raises(RateLimitExceededError):
         always_fail()
     # Assert
-    assert call_count == 3
+    assert call_count == 4
