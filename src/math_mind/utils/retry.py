@@ -17,11 +17,12 @@ def with_retry(max_retries: int = 3, base_delay: float = 60.0):
                     retries += 1
                     if retries >= max_retries:
                         raise e
+                    current_delay = base_delay * (2 ** retries) + random.uniform(0, 1))
                     logger.warning(
                         f"Rate limit hit in '{func.__name__}'. "
-                        f"Retrying {retries+1}/{max_retries} after {base_delay}s..."
+                        f"Retrying {retries+1}/{max_retries} after {current_delay}s..."
                     )
-                    time.sleep(base_delay)
+                    time.sleep(current_delay)
             return func(*args, **kwargs)
         return wrapper
     return decorator
