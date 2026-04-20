@@ -17,7 +17,7 @@ def with_retry(max_retries: int = 3, base_delay: float = 60.0):
                 except RateLimitExceededError as e:
                     if retries >= max_retries:
                         logger.error(f"Max retries ({max_retries}) reached. Aborting.")
-                        raise e
+                        raise
                     
                     current_delay = (base_delay * (2 ** retries)) + random.uniform(0, 1)                    
                     logger.warning(
