@@ -45,8 +45,9 @@ REPORT_FORMAT=json
 ```
 
 Optional overrides supported by the app:
-- `BATCH_SIZE` (default: `20`)
-- `GEMINI_MODEL` defaults to `gemini-2.5-pro` if omitted
+- `GEMINI_MODEL`: Model name (defaults to `gemini-2.5-pro` if omitted)
+- `INPUT_DIR`: Default input directory (default: `input`)
+- `OUTPUT_DIR`: Default output directory (default: `output`)
 
 ---
 
@@ -54,19 +55,22 @@ Optional overrides supported by the app:
 
 The system is operated via a Typer-based Command Line Interface (CLI). 
 
-To run the full pipeline on a **directory** of exam images:
+To run the full pipeline on a single exam image:
 
 ```bash
-uv run math-mind /path/to/exams_directory
+uv run math-mind path/to/exam_image.jpg
 ```
 
-> ⚠️ **Current branch note:** the CLI wiring in `src/math_mind/cli.py` currently contains a typo (`imagwe_processors`) that can raise an error at runtime. If you hit this, fix that variable name in `cli.py`.
+For example:
+```bash
+uv run math-mind data/images/A.jpg
+```
 
 ## 🔄 Execution Flow Breakdown:
 1. **Interactive Anonymization:** An OpenCV window will open displaying the exam. Click and drag your mouse to draw a bounding box over the student's name/details. Press `SPACE` or `ENTER` to confirm the crop.
 2. **Visual Verification:** A new window will display the anonymized image (with the selected region blacked out). The terminal will prompt you to approve (Y/N) the anonymization.
 3. **AI Evaluation:** Once approved, the image is sent to the Gemini Engine.
-4. **Batch Status Logging (expected behavior):** The CLI processes images in batches (`BATCH_SIZE`, default `20`) and logs each image path, status, and errors (if any).
+4. **Grading Report Output:** The CLI outputs the structured evaluation per question (`Question`, `Student Answer`, `Correct Answer`, `Readability`, `Grade`) directly to the log/console.
 
 ---
 
